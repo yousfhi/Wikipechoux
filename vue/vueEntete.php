@@ -85,17 +85,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
  </div>
 
- <div class="mid">
-  <div class="row">
-      <div class="col-sx-12 col-md-12 col-lg-12">
-          <form id="searchForm" action="./?action=affichage" class="d-flex flex-row" method="POST">
-              <input type="text" name="mot" placeholder="Saisir un mot..." class="form-control" onfocus="clearPlaceholder(this)">
-                  <img src="loupe-icon.png" alt="Search Icon" class="search-icon">
-              </button>
-          </form>
-      </div>
-  </div>
-</div>
+
 
 
 
@@ -115,16 +105,23 @@ if (session_status() == PHP_SESSION_NONE) {
       input.placeholder = '';
     }
   </script>
-        <div style=" left: 50%; transform: translate(-50%); display: inline-table;">
-            <form action="./?action=affichage" class="d-flex flex-row" method="POST">
-                <input type="text" id="mot" name="mot" placeholder="Saisir un mot" class="form-control">
-            </form>
-            <form action="./?action=affichage" class="d-flex flex-row" method="POST">
+
+<div class="mid">
+  <div class="row">
+      <div class="col-sx-12 col-md-12 col-lg-12">
+          <form id="searchForm" action="./?action=affichage" class="d-flex flex-row" method="POST">
+              <input type="text" id="mot" name="mot" placeholder="Saisir un mot..." class="form-control" onfocus="clearPlaceholder(this)">
+              <form action="./?action=affichage" class="d-flex flex-row" method="POST">
                 <div style="background-color: white;">
                     <div id="suggestionsContainer" class="suggestions-container" style="display: block;"></div>
                 </div>
             </form>
             <script src="modele/suggestion.js"></script>
-        </div>
-    </nav>
+                  <img src="image/loupe-icon.png" alt="Search Icon" class="search-icon">
+              </button>
+          </form>
+      </div>
+  </div>
+</div>
+
 
