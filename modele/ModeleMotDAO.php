@@ -118,7 +118,6 @@
             }
         }
 
-      
         public static function getMotSuivant($idMot) 
         {
             $idMotSuivant = $idMot + 1;
@@ -177,4 +176,6 @@
         }
 
     }   
+
+
 
