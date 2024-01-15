@@ -6,7 +6,8 @@ include_once "$racine/classes/Mot.php";
 
        
 //Récupération du numéro d'objet saisi dans le textBox en POST
-$mot = filter_input(INPUT_POST, "mot", FILTER_SANITIZE_STRING);
+$mot = filter_input(INPUT_POST, "mot", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
 
 if ($mot != null){
     // On demande au modèle de récupérer les données nécessaires à l'affichage
