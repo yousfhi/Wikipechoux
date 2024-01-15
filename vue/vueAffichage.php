@@ -22,7 +22,7 @@
             <div class="slider-container">
             <div class="menu">
             <?php
-
+            
             for($i = 0; $i < count($lesPhotos); $i++){
                 echo "<label for='slide-dot-".($i+1)."'></label>";
             }
@@ -43,25 +43,29 @@
 
             
         <div>
-            <?php
-            // Ajout des liens vers les mots précédent et suivant
-            $motPrecedentId = $idMot - 1;
-            $motSuivantId = $idMot + 1;
+          <?php
 
-            // Lien vers le mot précédent s'il existe
-            if ($motPrecedentId > 0) {
-                echo "<a href='./?action=affichage&mot=$motPrecedentId'>Mot Précédent</a>";
-            }
 
-            // Lien vers le mot suivant s'il existe
-            if ($motSuivantId <= 1) {
-                echo "<a href='./?action=affichage&mot=$motSuivantId'>Mot Suivant</a>";
-            }
-            ?>
+            $idMotPrecedent = ModeleMotDAO::getMotPrecedent($idMot)->getId();
+            $idMotSuivant = ModeleMotDAO::getMotSuivant($idMot)->getId();
+
+              echo "<a href='./?action=affichagel&mot=$idMotPrecedent'>Mot Précédent</a>";
+
+              echo "<a href='./?action=affichagel&mot=$idMotSuivant'>Mot Suivant</a>";
+              
+
+          ?>
         </div>
       <?php
         }
-       
+            $idMotPrecedent = ModeleMotDAO::getMotPrecedent($idMot)->getId();
+            $idMotSuivant = ModeleMotDAO::getMotSuivant($idMot)->getId();
+            $motSuivantApercu = ModeleMotDAO::getMotSuivantApercu($idMot);
+              echo "<a href='./?action=affichagel&mot=$idMotPrecedent'>Mot Précédent</a>";
+
+              echo "<a href='./?action=affichagel&mot=$idMotSuivant'>Mot Suivant($motSuivantApercu)</a>";
+
+
       
     }
       
