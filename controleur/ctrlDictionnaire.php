@@ -33,36 +33,3 @@ else{
     include "$racine/vue/vueResultRecherche.php";
     include "$racine/vue/vuePied.php";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//renvoyer tout l'objet mot et pas seulement nom_mot !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
