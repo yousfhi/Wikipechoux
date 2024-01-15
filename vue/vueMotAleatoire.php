@@ -9,14 +9,14 @@
 <body style="background-color: lightgray">
     <div class="row">
         <div class="col-4 mx-auto text-center">
-            <!-- Contenu spécifique à l'action "Mot aléatoire" -->
+
             <br> <br>
             <h1>Mot aléatoire</h1>
              
              <a href="./?action=motAleatoire" class="btn btn-primary">Mot aléatoire</a>
 
              <?php
-            // Vérifiez si $motAleatoire est défini avant d'essayer d'y accéder
+
             if (isset($motAleatoire['libelle']) && isset($motAleatoire['definition'])) {
                 echo "<p class = 'motAleatoire'> Mot : " . $motAleatoire['libelle'] . "<br> Définition : " . $motAleatoire['definition'] . "</p>";
             } else {
