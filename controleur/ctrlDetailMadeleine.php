@@ -2,7 +2,7 @@
 
 include_once "$racine/modele/ModeleMadeleinesDAO.php";
 
-$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING);
+$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if($id != null){
     $unObjet = ModeleMadeleinesDAO::getMadeleineById($id);
