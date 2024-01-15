@@ -270,3 +270,26 @@ body{
     font-weight: bold;
 
 }
+
+.menu {
+    position: absolute;
+    left: 0;
+    z-index: 11;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+
+
+  }
+  .menu label {
+    cursor: pointer;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50px;
+    margin: 0 0.2em 1em;
+  }
+  .menu label:hover,.menu label:focus {
+    background: #1c87c9;
+  }
