@@ -118,13 +118,62 @@
             }
         }
 
+      
         public static function getMotSuivant($idMot) 
         {
-            $idMotSuivant = $idMot - 1;
+            $idMotSuivant = $idMot + 1;
 
-            $sql = "Select * from mot where id =  ".$idMot;
+            $sql = "SELECT * from mot where id =  ".$idMotSuivant;
             $req = Connexion::getInstance()->query($sql);
+            $ligne = $req->fetch(); // Récupérez le résultat
+
+            $unMotSuivant = null ;
+
+            if ($ligne == true){
+                $unMotSuivant = new Mot($ligne['id'],$ligne['libelle'],$ligne['definition'],$ligne['date_creation'],ModeleThemeDAO::getThemeById($ligne['id_theme']) ) ;
+            }
+
+            return $unMotSuivant;
             
+        }
+
+        public static function getMotPrecedent($idMot)
+        {
+            $idMotPrecedent = $idMot - 1;
+
+            $sql = "SELECT * from mot where id =  ".$idMotPrecedent;
+            $req = Connexion::getInstance()->query($sql);
+            $req = Connexion::getInstance()->query($sql);
+
+            $ligne = $req->fetch();
+
+            $unMotPrecedent = null;
+            if ($ligne == true){
+                $unMotPrecedent = new Mot($ligne['id'],$ligne['libelle'],$ligne['definition'],$ligne['date_creation'],ModeleThemeDAO::getThemeById($ligne['id_theme']) ) ;
+            }
+            
+            return $unMotPrecedent;
+        }
+
+        public static function getMotSuivantApercu($idMot) 
+        {
+            $idMotSuivant = $idMot + 1;
+
+            $sql = "SELECT * from mot where id =  ".$idMotSuivant;
+            $req = Connexion::getInstance()->query($sql);
+            $ligne = $req->fetch(); 
+
+            $unMotSuivant = null ;
+
+            if ($ligne == true){
+                $unMotSuivant = [
+                    'id' => $ligne['id'],
+                    'libelle' => $ligne['libelle']
+                ];
+            }
+
+            return $unMotSuivant;
+
         }
 
     }   
