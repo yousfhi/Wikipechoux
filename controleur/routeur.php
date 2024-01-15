@@ -17,6 +17,7 @@ class Routeur{
         'updateInfo' => 'ctrlUpdateInfo.php',
         'updatePass' => 'ctrlUpdatePass.php',
         'madeleines' => 'ctrlMadeleines.php',
+        'flashCode' => 'ctrlFlashcode.php',
         'detail' => 'ctrlDetailMadeleine.php');   
         
     //Fonction qui retourne le fichier controleur à utiliser
