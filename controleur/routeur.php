@@ -18,7 +18,8 @@ class Routeur{
         'updatePass' => 'ctrlUpdatePass.php',
         'madeleines' => 'ctrlMadeleines.php',
         'flashCode' => 'ctrlFlashcode.php',
-        'detail' => 'ctrlDetailMadeleine.php');   
+        'detail' => 'ctrlDetailMadeleine.php',
+        'intro' => 'ctrlIntroduction.php');   
         
     //Fonction qui retourne le fichier controleur à utiliser
     public static function getControleur($action){
