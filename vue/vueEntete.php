@@ -28,6 +28,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
                 <div class="barre-grise"></div>
                 <li class="nav-item">
+                    <a class="nav-link" href="./?action=intro">Introduction</a>
+                </li>
+
+                <div class="barre-grise"></div>
+                <li class="nav-item">
                     <a class="nav-link" href="./?action=rechercheMot">Recherche par mot</a>
                 </li>
             
