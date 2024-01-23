@@ -14,19 +14,23 @@
 
         // retourne un tableau associatif à 2 dimensions (1 ligne / n colonnes) contenant toutes les constellations
         // On retourne un tableau à 2 dimensions pour harmoniser les traitements de la vue résultat
-        public static function getMotbyId($motID) {
+        public static function getMotbyId($motID)
+        {
             $sql = "Select * from mot where id = :motID";
-            $req = Connexion :: getInstance()->prepare($sql);
-            $req->bindValue(":motID",$motID,PDO::PARAM_INT);
+            $req = Connexion::getInstance()->prepare($sql);
+            $req->bindValue(":motID", $motID, PDO::PARAM_INT);
             $req->execute();
-            $ligne= $req->fetch();
-            
-            $unMot = null ;
-            $unMot = new Mot($ligne['id'],$ligne['libelle'],$ligne['definition'],$ligne['date_creation'],ModeleThemeDAO::getThemeById($ligne['id_theme']) ) ;
-          
-            
+            $ligne = $req->fetch();
+        
+            $unMot = null;
+        
+            if ($ligne) {
+                $unMot = new Mot($ligne['id'], $ligne['libelle'], $ligne['definition'], $ligne['date_creation'], ModeleThemeDAO::getThemeById($ligne['id_theme']));
+            }
+        
             return $unMot;
-        } 
+        }
+        
         
         public static function getMotbyLibelle($libelle) {
             $libelle = $libelle.'%';
@@ -175,7 +179,29 @@
 
         }
 
+        
+        public static function obtenirMotsAssocies($motID) {
+            // Récupérer le mot principal
+            $motPrincipal = self::getMotbyId($motID);
+        
+            // Vérifier si le mot principal a été trouvé
+            if ($motPrincipal) {
+                // Récupérer les mots associés par thème
+                $motsAssociesParTheme = self::getMotbyTheme($motPrincipal->getTheme()->getId());
+        
+                // Récupérer les mots associés par lettre
+                $motsAssociesParLettre = self::getMotsByLettre($motPrincipal->getLibelle()[0]);
+        
+                // Fusionner les résultats (éliminer les doublons)
+                $motsAssocies = array_merge($motsAssociesParTheme, $motsAssociesParLettre);
+                $motsAssocies = array_unique($motsAssocies, SORT_REGULAR);
+        
+                return $motsAssocies;
+            }
+    
+        return null; // Retourner null si le mot principal n'est pas trouvé
+    }
+
     }   
 
-
-
+    
