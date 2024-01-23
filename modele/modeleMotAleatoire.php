@@ -15,5 +15,3 @@ class ModeleMotAleatoire {
         return $result;
     }
 }
-
-?>
