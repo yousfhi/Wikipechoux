@@ -32,54 +32,56 @@
     <!-- Display links for the previous and next words -->
     <div>
       <?php
-    $idMotPrecedent = ModeleMotDAO::getMotPrecedent($unMot->getId());
-    $idMotSuivant = ModeleMotDAO::getMotSuivant($unMot->getId());
+        $idMotPrecedent = ModeleMotDAO::getMotPrecedent($unMot->getId());
+        $idMotSuivant = ModeleMotDAO::getMotSuivant($unMot->getId());
+        $motSuivantApercu = ModeleMotDAO::getMotSuivantApercu($unMot->getId());
 
-      // Vérifier si $idMotPrecedent est un entier avant d'appeler getId()
-      if (is_int($idMotPrecedent)) {
-        $idMotPrecedentValue = $idMotPrecedent;
-      } elseif ($idMotPrecedent instanceof Mot) {
-        $idMotPrecedentValue = $idMotPrecedent->getId();
-      }
+        // Vérifier si $idMotPrecedent est un entier avant d'appeler getId()
+        if (is_int($idMotPrecedent)) {
+          $idMotPrecedentValue = $idMotPrecedent;
+        } elseif ($idMotPrecedent instanceof Mot) {
+          $idMotPrecedentValue = $idMotPrecedent->getId();
+        }
 
-      // Vérifier si $idMotSuivant est un entier avant d'appeler getId()
-      if (is_int($idMotSuivant)) {
-        $idMotSuivantValue = $idMotSuivant;
-      } elseif ($idMotSuivant instanceof Mot) {
-        $idMotSuivantValue = $idMotSuivant->getId();
-      }
+        // Vérifier si $idMotSuivant est un entier avant d'appeler getId()
+        if (is_int($idMotSuivant)) {
+          $idMotSuivantValue = $idMotSuivant;
+        } elseif ($idMotSuivant instanceof Mot) {
+          $idMotSuivantValue = $idMotSuivant->getId();
+        }
 
-      echo '<div style="display: flex;">';
-      echo '<div>';
-      echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotPrecedentValue . '\'">Mot Précédent</button>';
-      echo '</div>';
+        echo '<div style="display: flex;">';
+        echo '<div>';
+        echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotPrecedentValue . '\'">Mot Précédent</button>';
+        echo '</div>';
+        
+        echo '<div>';
+        echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotSuivantValue . '\'">Mot Suivant ';
 
-      echo '<div>';
-      echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotSuivantValue . '\'">Mot Suivant ';
-
-      // Vérifier si $motSuivantApercu est défini et est un tableau avant d'utiliser implode
-      if (isset($motSuivantApercu) && is_array($motSuivantApercu)) {
-        echo implode(",<br>\n", $motSuivantApercu);
-      }
-
-      echo '</button>';
-      echo '</div>';
-      echo '</div>';
+        // Vérifier si $motSuivantApercu est défini avant d'utiliser implode
+        if (isset($motSuivantApercu) && is_array($motSuivantApercu)) {
+            echo implode(",<br>\n", $motSuivantApercu);
+        }
+        
+        echo '</button>';
+        echo '</div>';
+        echo '</div>';
+        
       ?>
     </div>
 
     <!-- Include the file with associated words -->
     <?php
-    // Assurez-vous que $idMot est un objet Mot avant d'appeler getId()
-    if ($idMot instanceof Mot) {
-      $idMotValue = $idMot->getId();
-    } else {
-      // Définissez une valeur par défaut ou gérez l'erreur selon vos besoins
-      $idMotValue = 0; // ou une autre valeur par défaut
-    }
+      // Assurez-vous que $idMot est un objet Mot avant d'appeler getId()
+      if ($idMot instanceof Mot) {
+        $idMotValue = $idMot->getId();
+      } else {
+        // Définissez une valeur par défaut ou gérez l'erreur selon vos besoins
+        $idMotValue = 0; // ou une autre valeur par défaut
+      }
 
-    $motsAssocies = ModeleMotDAO::obtenirMotsAssocies($idMotValue);
-    include 'vue/vueAffichageMotsAssocies.php';
+      $motsAssocies = ModeleMotDAO::obtenirMotsAssocies($idMotValue);
+      include 'vue/vueAffichageMotsAssocies.php';
     ?>
 
   <?php
