@@ -1,7 +1,4 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 // Inclure tout ce qui est nécessaire, comme les modèles, les bibliothèques, etc.
 // Inclure la classe Routeur
