@@ -25,7 +25,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <link rel="stylesheet" href="css/styleAffichage.css">
     <link rel="stylesheet" href="css/styleLogin.css">
     <script src="modele/suggestion.js"></script>
-    <title></title>
+    <title>Wikipechoux</title>
 </head>
 <body> 
 
