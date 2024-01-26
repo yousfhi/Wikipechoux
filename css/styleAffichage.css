@@ -1,0 +1,5 @@
+.contenuAffichage {
+    overflow-x: auto;
+    height: 75%; /* Ajout de cette propriété pour garantir une largeur maximale de 100% */
+    padding: 15px; /* Ajout de padding pour améliorer l'apparence */
+}

@@ -1,0 +1,23 @@
+.contenuAccueil {
+    overflow-y: auto;
+    height: 75%;
+    width: 100%;
+}
+
+.imgContainer {
+    position: relative;
+}
+
+.imgAccueil {
+    display: flex;
+    width: 100%;
+    z-index: -1;
+}
+
+.textOverlay {
+    position: absolute;
+    top: 50%; /* Ajustez la position verticale selon vos besoins */
+    left: 50%; /* Ajustez la position horizontale selon vos besoins */
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
