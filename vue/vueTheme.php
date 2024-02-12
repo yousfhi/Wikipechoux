@@ -22,7 +22,7 @@
                     ?>
                 </select>
             </div>
-            <input type="submit" class="btn btn-success" value="Rechercher2" name="Rechercher2" />
+            <input type="submit" class="btn btn-success" value="Rechercher" name="Rechercher2" />
         </form>
     </div>
     <br>
