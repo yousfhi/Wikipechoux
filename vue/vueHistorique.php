@@ -6,7 +6,7 @@
     <title></title>
 </head>
 
-<div class="contenuHistorique" style="background-color: lightgray">
+<div class="contenuHistorique" >
     <div class="row">
         <div class="col-4 mx-auto text-center">
             <!-- Contenu spécifique à l'action "Historique" -->
