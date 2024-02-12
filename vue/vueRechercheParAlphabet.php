@@ -1,4 +1,12 @@
-<div class="contenuRechercheParAlphabet" style="background-color: lightgray;">
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleRechercheParAlphabet.css">
+    <title></title>
+</head>
+
+<div class="contenuRechercheParAlphabet">
 <div class="row">
     <div class="col-4 mx-auto text-center">
         <form action="./?action=rechercheParAlphabet" method="POST"> 
