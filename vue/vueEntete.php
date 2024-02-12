@@ -96,50 +96,46 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 
-<script>document.addEventListener('DOMContentLoaded', function() {
-  var searchInput = document.querySelector('#searchForm input[type="text"]');
-  var searchIcon = document.querySelector('#searchForm .search-icon');
-
-  searchIcon.addEventListener('click', function() {
-    searchInput.classList.toggle('show');
-  });
-});
-</script>
 
 
-  <script>
-    function clearPlaceholder(input) {
-      input.placeholder = '';
-    }
-  </script>
 
-<div class="mid">
+    <div class="mid">
   <div class="row row1">
       <div class="col-sx-12 col-md-12 col-lg-12">
           <form id="searchForm" action="./?action=affichage" class="d-flex flex-row" method="POST">
               <input type="text" id="mot" name="mot" placeholder="Saisir un mot..." class="form-control" onfocus="clearPlaceholder(this)">
-              <form action="./?action=affichage" class="d-flex flex-row" method="POST">
-                <div style="background-color: white;">
-                    <div id="suggestionsContainer" class="suggestions-container" style="display: block;"></div>
-                </div>
-            </form>
-            <script src="modele/suggestion.js"></script>
-                  <img src="image/loupe-icon.png" alt="Search Icon" class="search-icon">
-              </button>
+              <div class="proposition">
+                  <div id="suggestionsContainer" class="suggestions-container" style="display: block;"></div>
+              </div>
+              <script src="modele/suggestion.js"></script>
+              <img src="image/loupe-icon.png" alt="Search Icon" class="search-icon">
+              <!-- La balise </button> était incorrecte dans votre code, je l'ai supprimée -->
           </form>
       </div>
   </div>
 </div>
 
-<script>document.addEventListener('DOMContentLoaded', function() {
-  var searchInput = document.querySelector('#searchForm input[type="text"]');
-  var searchIcon = document.querySelector('#searchForm .search-icon');
+</div>
 
-  searchIcon.addEventListener('click', function() {
-    searchInput.classList.toggle('show');
-  });
-});
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.querySelector('#searchForm input[type="text"]');
+        var searchIcon = document.querySelector('#searchForm .search-icon');
+
+        searchIcon.addEventListener('click', function() {
+            searchInput.classList.toggle('show');
+            if (searchInput.classList.contains('show')) {
+                setTimeout(function() {
+                    searchInput.focus();
+                }, 0);
+            }
+        });
+    });
 </script>
+
+
+
 
 
   <script>
@@ -149,3 +145,4 @@ if (session_status() == PHP_SESSION_NONE) {
   </script>
 
 </div>
+
