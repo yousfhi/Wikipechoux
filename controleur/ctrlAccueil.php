@@ -24,9 +24,6 @@ if ($mot != null) {
 // Entete
 include_once "$racine/vue/vueEntete.php";
 
-// Barre de recherche
-include_once "$racine/vue/vueBarreDeRecherche.php";
-
 // Corps de la page
 include_once "$racine/vue/vueAccueil.php";
 
