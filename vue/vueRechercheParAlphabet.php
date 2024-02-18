@@ -63,7 +63,7 @@
                         <?php // Ajout Icone photo pour les mots ayant des photos dans les listes
                         if (ModeleMotDAO::isPhoto($unMot->getId())){
                         ?>
-                         <img src="./image/Icone_photo.png" alt="Icone Photo" width="25" > 
+                         <img src="./image/Icone_photo.png" alt="Icone Photo" width="18" > 
                         <?php
                         }  
                         ?>    
