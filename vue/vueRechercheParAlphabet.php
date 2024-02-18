@@ -59,6 +59,15 @@
                            
                         <a href="./?action=affichage&mot=<?= $unMot->getId() ?>"><?= $unMot->getLibelle()?>
                         </a>
+
+                        <?php // Ajout Icone photo pour les mots ayant des photos dans les listes
+                        if (ModeleMotDAO::isPhoto($unMot->getId())){
+                        ?>
+                         <img src="./image/Icone_photo.png" alt="Icone Photo" width="25" > 
+                        <?php
+                        }  
+                        ?>    
+                            
                         </td>
                         <?php /*<td><?= $unMot->getDefinition() ?></td>
                         <td><?= $unMot->getDateCreation() ?></td>**/?>
