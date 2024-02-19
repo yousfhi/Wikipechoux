@@ -1,26 +1,36 @@
-<!-- Fichier : vue/vueAffichageMotsAssocies.php -->
 <?php
 
 if ($motsAssocies && is_array($motsAssocies) && !empty($motsAssocies)) {
     echo '<div>';
-    echo '<h3>Mots associés :</h3>';
+    echo '<h3>Résultats de la comparaison des mots associés :</h3>';
     echo '<ul>';
 
+    // Préparer la requête SQL à l'extérieur de la boucle
+    $sql = "SELECT DISTINCT mot_associe_mot_principal.libelle AS mot_associe_mot_principal, mot_associe_autre.libelle AS mot_associe_autre
+            FROM (
+                SELECT DISTINCT mot2.libelle
+                FROM mot AS mot1
+                JOIN proverbes AS assoc1 ON mot1.id = assoc1.id
+                JOIN mot AS mot2 ON assoc1.id = mot2.id
+                WHERE mot1.libelle LIKE CONCAT('%', :mot_associe, '%')
+            ) AS mot_associe_mot_principal
+            JOIN (
+                SELECT DISTINCT mot2.libelle
+                FROM mot AS mot1
+                JOIN proverbes AS assoc1 ON mot1.id = assoc1.id
+                JOIN mot AS mot2 ON assoc1.id_mot = mot2.id
+            ) AS mot_associe_autre ON 1=1"; // On utilise ON 1=1 pour éviter la condition de jointure, car on veut comparer tous les mots associés
+
+    $stmt = Connexion::getInstance()->prepare($sql);
+
     foreach ($motsAssocies as $motAssocie) {
-        // Utiliser une requête préparée pour optimiser la recherche dans la base de données
-        $sql = "SELECT * FROM mot WHERE libelle LIKE :mot";
-        $stmt = Connexion::getInstance()->prepare($sql);
-        $stmt->bindValue(':mot', $motAssocie->getLibelle() . '%', PDO::PARAM_STR);
+        // Exécuter la requête SQL pour chaque mot principal
+        $stmt->bindValue(':mot_associe', $motAssocie->getLibelle(), PDO::PARAM_STR);
         $stmt->execute();
 
-        $resultatRecherche = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($resultatRecherche) {
-            // Si la recherche a abouti, afficher le mot associé avec un lien vers la page de définition
-            echo '<li><a href="./?action=affichage&mot=' . $resultatRecherche['id'] . '">' . $resultatRecherche['libelle'] . '</a></li>';
-        } else {
-            // Sinon, afficher simplement le mot associé
-            echo '<li>' . $motAssocie->getLibelle() . '</li>';
+        // Afficher les résultats de la comparaison
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo '<li>Le mot "' . $motAssocie->getLibelle() . '" est associé à "' . $row['mot_associe_autre'] . '"</li>';
         }
     }
 
@@ -29,4 +39,3 @@ if ($motsAssocies && is_array($motsAssocies) && !empty($motsAssocies)) {
 } else {
     echo '<div>Aucun mot associé trouvé.</div>';
 }
-?>
