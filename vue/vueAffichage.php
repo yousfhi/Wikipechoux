@@ -78,19 +78,18 @@
         
       ?>
     </div>
-    
-    <!-- Include the file with associated words -->
-    <?php
-      // Assurez-vous que $idMot est un objet Mot avant d'appeler getId()
-      if ($idMot instanceof Mot) {
-        $idMotValue = $idMot->getId();
-      } else {
-        // Définissez une valeur par défaut ou gérez l'erreur selon vos besoins
-        $idMotValue = 0; // ou une autre valeur par défaut
-      }
 
-      $motsAssocies = ModeleMotDAO::obtenirMotsAssocies($idMotValue);
-      include 'vue/vueAffichageMotsAssocies.php';
+
+     <!-- Affichage des mots associés -->
+    <?php
+    if ($unMot instanceof Mot) {
+      $idMotValue = $unMot->getId();
+    } else {
+      $idMotValue = 0; // Valeur par défaut
+    }
+
+    $motsAssocies = ModeleMotDAO::obtenirMotsAssocies($idMotValue);
+    include 'vue/vueAffichageMotsAssocies.php';
     ?>
 
   <?php
