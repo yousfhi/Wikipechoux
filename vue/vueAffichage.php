@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styleAffichageMot.css">
-    <title></title>
-</head>
-
-
-<div class="contenuAffichage">
+<div class="contenuAffichage" style="background-color: lightgray">
 
   <?php
   if ($estTrouve) {
     ?>
-    <!-- Display the word information centered -->
+    <!-- Affichage des informations sur le mot centré -->
     <center><h1><?=$unMot->getLibelle()?></h1></center> 
     <center><h2><?=$unMot->getDefinition()?></h2></center>
     
@@ -32,55 +23,39 @@
       </div>
     <?php endif; ?>
 
-    <!-- Display links for the previous and next words -->
+    <!-- Affichage des liens pour les mots précédents et suivants -->
     <div>
-      <?php
-        $idMotPrecedent = ModeleMotDAO::getMotPrecedent($unMot->getId());
-        $idMotSuivant = ModeleMotDAO::getMotSuivant($unMot->getId());
-        $motSuivantApercu = ModeleMotDAO::getMotSuivantApercu($unMot->getId());
-        $motPrecedentApercu = ModeleMotDAO::getMotPrecedentApercu($unMot->getId());
+    <?php
+    $idMotPrecedent = ModeleMotDAO::getMotPrecedent($unMot->getId());
+    $idMotSuivant = ModeleMotDAO::getMotSuivant($unMot->getId());
+    $motSuivantApercu = ModeleMotDAO::getMotSuivantApercu($unMot->getId());
+    $motPrecedentApercu = ModeleMotDAO::getMotPrecedentApercu($unMot->getId());
 
-        echo '<div style="display: flex;">';
-        echo '<div>';
-        
-        // Vérifier si $idMotPrecedent est un entier avant d'appeler getId()
-        if (is_int($idMotPrecedent)) {
-          echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotPrecedent . '\'">Mot Précédent</button>';
-        } elseif ($idMotPrecedent instanceof Mot) {
-          echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotPrecedent->getId() . '\'">Mot Précédent';
-        }
+    echo '<div style="display: flex;">';
+    echo '<div>';
 
-        // Afficher l'aperçu du mot précédent
-        if (isset($motPrecedentApercu)) {
-            echo '<br>' . implode(",<br>\n", $motPrecedentApercu);
-        }
-        echo '</button>';
+    echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotPrecedent->getId() . '\'">';
+    if (isset($motPrecedentApercu)) {
+        echo implode(",<br>\n", $motPrecedentApercu);
+    }
+    echo '</button>';
 
-        echo '</div>';
-        
-        echo '<div>';
-        
-        // Vérifier si $idMotSuivant est un entier avant d'appeler getId()
-        if (is_int($idMotSuivant)) {
-          echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotSuivant . '\'">Mot Suivant</button>';
-        } elseif ($idMotSuivant instanceof Mot) {
-          echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotSuivant->getId() . '\'">Mot Suivant';
-        }
+    echo '</div>';
 
-        // Vérifier si $motSuivantApercu est défini avant d'utiliser implode
-        if (isset($motSuivantApercu) && is_array($motSuivantApercu)) {
-            echo '<br>' . implode(",<br>\n", $motSuivantApercu);
-        }
-        
-        echo '</button>';
-        echo '</div>';
-        echo '</div>';
-        
-      ?>
-    </div>
+    echo '<div>';
+    
+    echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotSuivant->getId() . '\'">';
+    if (isset($motSuivantApercu)) {
+        echo implode(",<br>\n", $motSuivantApercu);
+    }
+    echo '</button>';
+    
+    echo '</div>';
+    echo '</div>';
+    ?>
+    </div> <!-- Fin de la division pour les liens précédents et suivants -->
 
-
-     <!-- Affichage des mots associés -->
+    <!-- Affichage des mots associés -->
     <?php
     if ($unMot instanceof Mot) {
       $idMotValue = $unMot->getId();
