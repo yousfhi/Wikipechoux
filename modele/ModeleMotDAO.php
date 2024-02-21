@@ -114,83 +114,104 @@
             }
         }
 
-        public static function getMotSuivant($idMot) 
+       public static function getMotSuivant($idMot) 
         {
-            $idMotSuivant = $idMot + 1;
-
-            $sql = "SELECT * from mot where id =  ".$idMotSuivant;
+            // Récupérer le libelle du mot actuel
+            $sql = "SELECT libelle from mot where id = ".$idMot;
             $req = Connexion::getInstance()->query($sql);
-            $ligne = $req->fetch(); // Récupérez le résultat
+            $ligne = $req->fetch();
+            $libelleActuel = $ligne['libelle'];
 
-            $unMotSuivant = null ;
+            // Sélectionner le mot suivant par ordre alphabétique
+            $sql = 'SELECT * from mot WHERE libelle > "'.$libelleActuel.'" ORDER BY libelle ASC LIMIT 1';
+            $req = Connexion::getInstance()->query($sql);
+            $ligne = $req->fetch();
+
+            $unMotSuivant = null;
 
             if ($ligne == true){
-                $unMotSuivant = new Mot($ligne['id'],$ligne['libelle'],$ligne['definition'],$ligne['date_creation'],ModeleThemeDAO::getThemeById($ligne['id_theme']) ) ;
+                $unMotSuivant = new Mot($ligne['id'],$ligne['libelle'],$ligne['definition'],$ligne['date_creation'],ModeleThemeDAO::getThemeById($ligne['id_theme']));
             }
 
             return $unMotSuivant;
-            
+                    
         }
-            public static function getMotPrecedent($idMot)
-            {
-                $idMotPrecedent = $idMot - 1;
-    
-                $sql = "SELECT * from mot where id =  ".$idMotPrecedent;
-                $req = Connexion::getInstance()->query($sql);
-                $req = Connexion::getInstance()->query($sql);
-    
-                $ligne = $req->fetch();
-    
-                $unMotPrecedent = null;
-                if ($ligne == true){
-                    $unMotPrecedent = new Mot($ligne['id'],$ligne['libelle'],$ligne['definition'],$ligne['date_creation'],ModeleThemeDAO::getThemeById($ligne['id_theme']) ) ;
-                }
-                
-                return $unMotPrecedent;
-            }
-    
-            public static function getMotSuivantApercu($idMot) 
-            {
-                $idMotSuivant = $idMot + 1;
-    
-                $sql = "SELECT * from mot where id =  ".$idMotSuivant;
-                $req = Connexion::getInstance()->query($sql);
-                $ligne = $req->fetch(); 
-    
-                $unMotSuivant = null ;
-    
-                if ($ligne == true){
-                    $unMotSuivant = [
-                        'id' => $ligne['id'],
-                        'libelle' => $ligne['libelle']
-                    ];
-                }
-    
-                return $unMotSuivant;
-    
+
+        public static function getMotPrecedent($idMot)
+        {
+            $idMotPrecedent = $idMot - 1;
+
+            $sql = "SELECT libelle from mot where id = ".$idMot;
+            $req = Connexion::getInstance()->query($sql);
+            $ligne = $req->fetch();
+            $libelleActuel = $ligne['libelle'];
+
+            // Sélectionner le mot Precedent par ordre alphabétique
+            $sql = 'SELECT * from mot WHERE libelle < "'.$libelleActuel.'" ORDER BY libelle DESC LIMIT 1';
+            $req = Connexion::getInstance()->query($sql);
+            $ligne = $req->fetch();
+
+            $unMotPrecedent = null;
+
+            if ($ligne == true){
+                $unMotPrecedent = new Mot($ligne['id'],$ligne['libelle'],$ligne['definition'],$ligne['date_creation'],ModeleThemeDAO::getThemeById($ligne['id_theme']));
             }
 
+            return $unMotPrecedent;
+        }
+        
+
+        public static function getMotSuivantApercu($idMot) 
+        {
+            // D'abord, récupérez le libelle du mot actuel en utilisant son ID.
+            $sqlLibelleActuel = "SELECT libelle FROM mot WHERE id = ".$idMot;
+            $reqLibelleActuel = Connexion::getInstance()->query($sqlLibelleActuel);
+            $ligneLibelleActuel = $reqLibelleActuel->fetch();
+            $libelleActuel = $ligneLibelleActuel['libelle'];
             
-            public static function getMotPrecedentApercu($idMot) 
-            {
-                $idMotPrecedent = $idMot - 1;
-
-                $sql = "SELECT * from mot where id =  ".$idMotPrecedent;
-                $req = Connexion::getInstance()->query($sql);
-                $ligne = $req->fetch(); 
-
-                $unMotPrecedent = null ;
-
-                if ($ligne == true){
-                    $unMotPrecedent = [
-                        'id' => $ligne['id'],
-                        'libelle' => $ligne['libelle']
-                    ];
-                }
-
-                return $unMotPrecedent;
+            if (!$libelleActuel) {
+                return null;
             }
-    
+            
+            // Ensuite, sélectionnez le mot suivant par ordre alphabétique.
+            $sql = 'SELECT * FROM mot WHERE libelle > "'.$libelleActuel.'" ORDER BY libelle ASC LIMIT 1';
+            $req = Connexion::getInstance()->query($sql);
+            $ligne = $req->fetch(PDO::FETCH_ASSOC); 
+            
+            if (!$ligne) {
+                return null; // Il n'y a pas de mot suivant.
+            }
+            
+
+            return $ligne;
+        }
+
+        public static function getMotPrecedentApercu($idMot)
+        {
+            $sqlLibelleActuel = "SELECT libelle FROM mot WHERE id = ".$idMot;
+            $reqLibelleActuel = Connexion::getInstance()->query($sqlLibelleActuel);
+            $ligneLibelleActuel = $reqLibelleActuel->fetch();
+            $libelleActuel = $ligneLibelleActuel['libelle']; 
+            
+            if (!$libelleActuel) {
+                return null;
+            }
+            
+
+            $sql = 'SELECT * FROM mot WHERE libelle < "'.$libelleActuel.'" ORDER BY libelle DESC LIMIT 1';
+            $req = Connexion::getInstance()->query($sql);
+            $ligne = $req->fetch(PDO::FETCH_ASSOC); 
+            
+            if (!$ligne) {
+                return null; 
+            }
+            
+        
+            return $ligne;
+        }
+        
+
+
             
             public static function obtenirMotsAssocies($motID) {
                 // Récupérer le mot principal
