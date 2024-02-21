@@ -26,42 +26,39 @@
     <!-- Affichage des liens pour les mots précédents et suivants -->
     <div>
     <?php
-    $idMotPrecedent = ModeleMotDAO::getMotPrecedent($unMot->getId());
-    $idMotSuivant = ModeleMotDAO::getMotSuivant($unMot->getId());
-    $motSuivantApercu = ModeleMotDAO::getMotSuivantApercu($unMot->getId());
-    $motPrecedentApercu = ModeleMotDAO::getMotPrecedentApercu($unMot->getId());
+   // if ($libelleMotSuivant !== null) {           
+        echo "<a href='./?action=affichagel&mot=$idMotPrecedent' class='motNavig'>Mot Précédent($libelleMotPrecedent)</a>";
+        echo "<a href='./?action=affichagel&mot=$idMotSuivant'>Mot Suivant($libelleMotPrecedent)</a>";
+      //}else {
+      //  echo "<a href='./?action=affichagel&mot=$idMotPrecedent' class='motNavig'>Mot Précédent($libelleMotPrecedent)</a>";
+       // echo "Vous êtes au dernier mot de la liste";
+     // }
+        if(ModeleMotDAO::isPhoto($unMot->getId())){
+      
+      ?>
+      
 
-    echo '<div style="display: flex;">';
-    echo '<div>';
+      
+            <div class="slider-container">
+            <div class="menu">
+            <?php
+            
+            for($i = 0; $i < count($lesPhotos); $i++){
+                echo "<label for='slide-dot-".($i+1)."'></label>";
+            }
+        ?>
+          
+        
+            </div>
+      
+        <?php
+            for($i = 0;$i < count($lesPhotos); $i++){
+            echo '<input class="slide-input" id="slide-dot-'.($i+1).'" type="radio" name="slides" checked>' ;
+            echo '<img class="slide-img" src="./image/'.$lesPhotos[$i]['fichier'].'">' ;
+            }
 
-    echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotPrecedent->getId() . '\'">';
-    if (isset($motPrecedentApercu)) {
-        echo implode(",<br>\n", $motPrecedentApercu);
-    }
-    echo '</button>';
-
-    echo '</div>';
-
-    echo '<div>';
-    
-    echo '<button onclick="window.location.href=\'./?action=affichage&mot=' . $idMotSuivant->getId() . '\'">';
-    if (isset($motSuivantApercu)) {
-        echo implode(",<br>\n", $motSuivantApercu);
-    }
-    echo '</button>';
-    
-    echo '</div>';
-    echo '</div>';
-    ?>
-    </div> <!-- Fin de la division pour les liens précédents et suivants -->
-
-    <!-- Affichage des mots associés -->
-    <?php
-    if ($unMot instanceof Mot) {
-      $idMotValue = $unMot->getId();
-    } else {
-      $idMotValue = 0; // Valeur par défaut
-    }
+            
+        ?>
 
     $motsAssocies = ModeleMotDAO::obtenirMotsAssocies($idMotValue);
     include 'vue/vueAffichageMotsAssocies.php';
